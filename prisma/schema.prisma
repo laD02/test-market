@@ -1,0 +1,33 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL") 
+}
+
+model MarketIndex {
+  id        String   @id @map("_id") @default(auto()) @db.ObjectId
+  name      String
+  symbol    String
+  current   Float
+  open      Float
+  high      Float
+  low       Float
+  percent   Float
+  updatedAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model IndexAnalysis {
+  id             String   @id @map("_id") @default(auto()) @db.ObjectId
+  indexSymbol    String
+  date           DateTime
+  closePrice     Float
+  movingAvg5     Float?
+  movingAvg10    Float?
+  percentCompare Float?
+  recommendation String?
+}
